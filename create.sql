@@ -7,3 +7,4 @@ CREATE TABLE IF NOT EXISTS `user` (
     `password` VARCHAR(64),
     `img` TEXT
 );
+
