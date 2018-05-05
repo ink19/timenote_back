@@ -20,6 +20,12 @@ class User extends Model {
                 'msg' => '邮箱已注册'
             ];
         }
+        if(self::get(['username' => $data['username']]) != NULL) {
+            return [
+                'code' => -1,
+                'msg' => '用户名已注册'
+            ];
+        }
         $data['password'] = md5($data['password']);
         $data['img'] = "http://cdn.timenote.ink19.cn/head/default.png";
         $user = self::create($data);

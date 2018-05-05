@@ -39,7 +39,7 @@ class User extends Controller {
         $user = new UserModel;
         $return_data = $user->addUser($register_data);
         if($return_data['code'] == 0) {
-            session('email', $register_data['email']);
+            session('username', $register_data['username']);
             session('password', md5($register_data['password']));
         }
         return json($return_data);
@@ -64,6 +64,24 @@ class User extends Controller {
             return json([
                 'code' => -1,
                 'msg' => "用户名或密码错误"
+            ]);
+        } else {
+            session('username', $login_data['username']);
+            session('password', md5($login_data['password']));
+            return json([
+                'code' => 0,
+                'msg' => $user->hidden(['password'])->toArray()
+            ]);
+        }
+    }
+
+    public function isLogin() {
+        $session_data['username'] = session('username');
+        $session_data['password'] = session('password');
+        if(NULL == ($user = UserModel::get($session_data))) {
+            return json([
+                'code' => -1,
+                'msg' => '未登入'
             ]);
         } else {
             return json([
