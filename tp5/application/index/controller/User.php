@@ -44,4 +44,32 @@ class User extends Controller {
         }
         return json($return_data);
     }
+
+    public function login() {
+        if(NULL == ($login_data['username'] = input('post.username'))) {
+            return json([
+                'code' => -1,
+                'msg' => "用户名不能为空"
+            ]);
+        } 
+
+        if(NULL == ($login_data['password'] = input('post.password'))) {
+            return json([
+                'code' => -1,
+                'msg' => "密码不能为空"
+            ]);
+        }
+        $login_data['password'] = md5($login_data['password']);
+        if(NULL == ($user = UserModel::get($login_data))) {
+            return json([
+                'code' => -1,
+                'msg' => "用户名或密码错误"
+            ]);
+        } else {
+            return json([
+                'code' => 0,
+                'msg' => $user->hidden(['password'])->toArray()
+            ]);
+        }
+    }
 }
