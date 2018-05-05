@@ -6,7 +6,7 @@ use app\index\model\User as UserModel;
 class User extends Controller {
     public function register() {
         $register_data = [];
-        if(NULL == ($register_data['nickname'] = input('post.nickname'))) {
+        if(NULL == ($register_data['username'] = input('post.username'))) {
             return json([
                 'code' => -1,
                 'msg' => '昵称不能为空'
@@ -30,10 +30,10 @@ class User extends Controller {
                 'msg' => '密码不能为空'
             ]);
         }
-        if(NULL == ($register_data['password2'] = input('post.password2'))) {
+        if(($register_data['password'] != input('post.repassword'))) {
             return json([
                 'code' => -1,
-                'msg' => '重复密码不能为空'
+                'msg' => '重复密码不一致'
             ]);
         }
         $user = new UserModel;

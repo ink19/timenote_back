@@ -7,13 +7,6 @@ use think\Model;
  */
 class User extends Model {
     public function addUser($data) {
-        if($data['password'] != $data['password2']) {
-            return [
-                'code' => -1,
-                'msg' => '密码不一致'
-            ];
-        }
-
         if(self::get(['phone' => $data['phone']]) != NULL) {
             return [
                 'code' => -1,
@@ -27,11 +20,12 @@ class User extends Model {
                 'msg' => '邮箱已注册'
             ];
         }
-
+        $data['password'] = md5($data['password']);
+        $data['img'] = "http://cdn.timenote.ink19.cn/head/default.png";
         $user = self::create($data);
         return [
             'code' => 0,
-            'msg' => $user->id
+            'msg' => $user->hidden(['password'])->toArray()
         ];
     }
 }
