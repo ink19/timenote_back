@@ -3,7 +3,7 @@ namespace app\index\model;
 
 use think\Model;
 /**
- * field: uid nickname phone email password 
+ * field: uid username phone email password 
  */
 class User extends Model {
     public function addUser($data) {
@@ -33,5 +33,21 @@ class User extends Model {
             'code' => 0,
             'msg' => $user->hidden(['password'])->toArray()
         ];
+    }
+
+    public static function verifyIdentity($username, $password) {
+        if(NULL == ($user = UserModel::get([
+            'username' => $username,
+            'password' => $password
+        ]))) {
+            return [
+                'code' => -1,
+            ];
+        } else {
+            return [
+                'code' => 0,
+                'data' => $user->hidden(['password'])->toArray()
+            ];
+        }
     }
 }
