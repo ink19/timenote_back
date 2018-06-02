@@ -66,4 +66,19 @@ class Note extends Controller {
             ]);
         }
     }
+
+    public function getOneNote() {
+        $data = NoteModel::get(input('post.nid'));
+        if($data != NULL) {
+            return json([
+                'code' => 0,
+                'msg' => $data->toArray()
+            ]);
+        } else {
+            return json([
+                'code' => -1,
+                'msg' => '无此文章'
+            ]);
+        }
+    }
 }
