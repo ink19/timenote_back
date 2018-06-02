@@ -8,3 +8,14 @@ CREATE TABLE IF NOT EXISTS `user` (
     `img` TEXT
 );
 
+CREATE TABLE IF NOT EXISTS `note` (
+    `nid` INT UNSIGNED AUTO_INCREMENT,
+    PRIMARY KEY (`nid`),
+    `title` TEXT,
+    `labels` TEXT,
+    `content` TEXT,
+    `create_time` INT,
+    `modify_time` INT,
+    `uid` INT,
+    `status` INT
+);
