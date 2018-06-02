@@ -81,4 +81,15 @@ class Note extends Controller {
             ]);
         }
     }
+
+    public function delete() {
+        if(($user_info = $this->verify()) == null) {
+            return json([
+                'code' => -1,
+                'msg' => '未登入'
+            ]);
+        } else {
+            return json(NoteModel::deleteOne($user_info['uid'], input('post.nid')));
+        }
+    }
 }
