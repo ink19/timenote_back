@@ -10,6 +10,7 @@ use think\Model;
  */
 
 class Note extends Model {
+    protected $createTime = false;
     protected $resultSetType = 'collection';
     public static function refreshOne($uid, $id, $data) {
         $noteM = self::get($id);
