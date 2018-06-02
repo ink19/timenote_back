@@ -36,7 +36,7 @@ class User extends Model {
     }
 
     public static function verifyIdentity($username, $password) {
-        if(NULL == ($user = UserModel::get([
+        if(NULL == ($user = self::get([
             'username' => $username,
             'password' => $password
         ]))) {
