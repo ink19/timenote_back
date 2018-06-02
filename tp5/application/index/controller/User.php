@@ -67,7 +67,7 @@ class User extends Controller {
             ]);
         } else {
             session('username', $login_data['username']);
-            session('password', md5($login_data['password']));
+            session('password', $login_data['password']);
             return json([
                 'code' => 0,
                 'msg' => $user->hidden(['password'])->toArray()
