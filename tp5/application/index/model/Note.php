@@ -102,6 +102,6 @@ class Note extends Model {
     }
 
     public function getSummaryAttr($value,$data) {
-        return mb_strcut($data['content'], 100);
+        return mb_strcut($data['content'], 0, 100);
     }
 }
