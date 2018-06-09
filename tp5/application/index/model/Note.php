@@ -100,4 +100,8 @@ class Note extends Model {
             'msg' => '删除成功'
         ];
     }
+
+    public function getSummaryAttr($value,$data) {
+        return mb_strcut($data['content'], 100);
+    }
 }
