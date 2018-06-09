@@ -62,7 +62,7 @@ class Note extends Controller {
             $data_list = NoteModel::all(['uid' => $user_info['uid']]);
             return json([
                 'code' => 0,
-                'msg' => $data_list->hidden(['content'])->toArray()
+                'msg' => $data_list->hidden(['content'])->append(['summary'])->toArray()
             ]);
         }
     }
