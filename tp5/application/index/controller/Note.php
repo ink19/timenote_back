@@ -37,7 +37,6 @@ class Note extends Controller {
             $data['title'] = input('post.title');
             $data['content'] = input('post.content');
             $data['labels'] = input('post.labels');
-
             return json(NoteModel::refreshOne($user_info['uid'], $nid,$data));
         }
     }
@@ -65,6 +64,14 @@ class Note extends Controller {
                 'msg' => $data_list->hidden(['content'])->append(['summary'])->toArray()
             ]);
         }
+    }
+
+    public function list() {
+        $data_list = NoteModel::all(['uid' => input('post.uid'), 'status' => 0]);
+        return json([
+            'code' => 0,
+            'msg' => $data_list->hidden(['content'])->append(['summary'])->toArray()
+        ]);
     }
 
     public function getOneNote() {
