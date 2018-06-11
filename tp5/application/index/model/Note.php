@@ -75,7 +75,7 @@ class Note extends Model {
         ]);
         return [
             'code' => 0,
-            'msg' => '关系成功'
+            'msg' => '更新成功'
         ];
     }
 
